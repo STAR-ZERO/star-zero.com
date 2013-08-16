@@ -49,6 +49,7 @@ $(function() {
             margin: 0
           });
           $('.inner').fadeIn(3000);
+          $(document.documentElement).css('overflow', 'hidden');
         }
       });
       $a.append($image);
