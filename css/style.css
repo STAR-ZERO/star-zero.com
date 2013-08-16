@@ -61,6 +61,7 @@ body {
 h1 {
     font-family: 'Bowlby One', cursive;
     font-size: 48px;
+    margin-left: 10px;
 }
 .link {
     margin-top: 20px;
