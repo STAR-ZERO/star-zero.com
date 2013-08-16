@@ -2,7 +2,6 @@ $(function() {
   var url = 'http://api.tumblr.com/v2/blog/tumblr.star-zero.com/posts?api_key=m2ScFhIfturGIHlhEXNKUNQct4EiWFj9u2Z4ZmpenREwG71oGZ&type=photo&jsonp=?&offset='
   var offset = 0;
 
-
   var $container = $('#am-container');
   var images = [];
 
@@ -39,6 +38,7 @@ $(function() {
       $image = $('<img/>').attr('src', val).hide().load(function() {
         count++;
         if (count == total) {
+          $('.loading').hide();
           $container.find('img').show();
           $container.montage({
             fillLastRow: true,
@@ -48,7 +48,7 @@ $(function() {
             },
             margin: 0
           });
-          $("body").css("overflow", "hidden");
+          $('.inner').fadeIn(3000);
         }
       });
       $a.append($image);
