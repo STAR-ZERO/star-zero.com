@@ -5,6 +5,15 @@ $(function() {
   var $container = $('#am-container');
   var images = [];
 
+  // windowの高さで取得件数を変える（かなりアバウト）
+  var maxCount = 60;
+  var windowHeight = $(window).height();
+  if (windowHeight > 800) {
+      maxCount = 100;
+  } else if (windowHeight > 800) {
+      maxCount = 80;
+  }
+
   function callTumblrApi() {
     $.getJSON(url + offset, function(data) {
       if (data.meta.status != 200) {
@@ -21,7 +30,7 @@ $(function() {
       });
 
       offset += 20;
-      if (offset < 60) {
+      if (offset < maxCount) {
         callTumblrApi();
       } else {
         montage();
