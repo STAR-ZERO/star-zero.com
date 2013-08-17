@@ -5,13 +5,15 @@ $(function() {
   var $container = $('#am-container');
   var images = [];
 
+  var maxApiCount = 3;
+  var apiCount = 0;
+
   // windowの高さで取得件数を変える（かなりアバウト）
-  var maxCount = 60;
   var windowHeight = $(window).height();
   if (windowHeight > 800) {
-      maxCount = 100;
+      maxApiCount = 5;
   } else if (windowHeight > 800) {
-      maxCount = 80;
+      maxApiCount = 4;
   }
 
   function callTumblrApi() {
@@ -27,13 +29,11 @@ $(function() {
           }
           images.push(this.alt_sizes[index].url);
         });
-      });
 
-      offset += 20;
-      if (offset < maxCount) {
-        callTumblrApi();
-      } else {
-        montage();
+      });
+      apiCount++;
+      if (apiCount == maxApiCount) {
+          montage();
       }
     });
   }
@@ -41,6 +41,8 @@ $(function() {
   function montage() {
     var total = images.length;
     var count = 0;
+
+    images = _.shuffle(images);
 
     $.each(images, function(i, val) {
       $a = $('<a/>');
@@ -66,6 +68,8 @@ $(function() {
     });
   }
 
-  callTumblrApi();
+  for (var i = 0; i < maxApiCount; i++) {
+      callTumblrApi();
+      offset += 20;
+  }
 });
-
