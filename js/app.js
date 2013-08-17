@@ -44,13 +44,16 @@ $(function() {
 
     images = _.shuffle(images);
 
+    var indexes = [];
     $.each(images, function(i, val) {
+      indexes.push(i);
       $a = $('<a/>');
       $image = $('<img/>').attr('src', val).hide().load(function() {
         count++;
         if (count == total) {
+          var $containerImages = $container.find('img');
           $('.loading').hide();
-          $container.find('img').show();
+          $containerImages.show();
           $container.montage({
             fillLastRow: true,
             alternateHeightRange: {
@@ -59,8 +62,18 @@ $(function() {
             },
             margin: 0
           });
-          $('.inner').fadeIn(3000);
+          $containerImages.hide();
+          $('.inner').fadeIn(3500);
           $(document.documentElement).css('overflow', 'hidden');
+
+          var delay = 1000;
+          indexes = _.shuffle(indexes);
+          $.each(indexes, function(i, val) {
+            setTimeout(function() {
+              $($containerImages[val]).fadeIn(1500);
+            }, delay);
+            delay += 40;
+          });
         }
       });
       $a.append($image);
