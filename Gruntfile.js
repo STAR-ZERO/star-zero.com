@@ -18,10 +18,13 @@ module.exports = function(grunt) {
         }
       }
     },
+    jshint: {
+      app: ['js/app.js']
+    },
     watch: {
       js: {
         files: 'js/app.js',
-        tasks: ['uglify'],
+        tasks: ['jshint', 'uglify'],
         options: {
           livereload: true
         }
@@ -46,6 +49,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-connect');
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-uglify');
+  grunt.loadNpmTasks('grunt-contrib-jshint');
 
   grunt.registerTask('server', ['connect', 'watch']);
 }
