@@ -1,5 +1,5 @@
 $(function() {
-  var url = 'http://api.tumblr.com/v2/blog/tumblr.star-zero.com/posts?api_key=m2ScFhIfturGIHlhEXNKUNQct4EiWFj9u2Z4ZmpenREwG71oGZ&type=photo&jsonp=?&offset='
+  var url = 'http://api.tumblr.com/v2/blog/tumblr.star-zero.com/posts?api_key=m2ScFhIfturGIHlhEXNKUNQct4EiWFj9u2Z4ZmpenREwG71oGZ&type=photo&jsonp=?&offset=';
   var offset = 0;
 
   var $container = $('#am-container');
@@ -25,7 +25,7 @@ $(function() {
         $(this.photos).each(function() {
           var index = 2;
           if (this.alt_sizes.length < 3) {
-            index = 0
+            index = 0;
           }
           images.push(this.alt_sizes[index].url);
         });
