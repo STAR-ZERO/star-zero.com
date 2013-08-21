@@ -17,7 +17,7 @@ $(function() {
   }
 
   function callTumblrApi() {
-    $.getJSON(url + offset, function(data) {
+    $.getJSON(url + offset).done(function(data) {
       if (data.meta.status != 200) {
         return;
       }
@@ -29,8 +29,8 @@ $(function() {
           }
           images.push(this.alt_sizes[index].url);
         });
-
       });
+    }).complete(function() {
       apiCount++;
       if (apiCount == maxApiCount) {
           montage();
@@ -42,6 +42,11 @@ $(function() {
     var total = images.length;
     var count = 0;
 
+    if (total === 0) {
+      showLinks();
+      return;
+    }
+
     images = _.shuffle(images);
 
     var indexes = [];
@@ -52,7 +57,6 @@ $(function() {
         count++;
         if (count == total) {
           var $containerImages = $container.find('img');
-          $('.loading').hide();
           $containerImages.show();
           $container.montage({
             fillLastRow: true,
@@ -63,8 +67,7 @@ $(function() {
             margin: 0
           });
           $containerImages.hide();
-          $('.inner').fadeIn(3500);
-          $(document.documentElement).css('overflow', 'hidden');
+          showLinks();
 
           var delay = 1000;
           indexes = _.shuffle(indexes);
@@ -79,6 +82,12 @@ $(function() {
       $a.append($image);
       $container.append($a);
     });
+  }
+
+  function showLinks() {
+      $('.loading').hide();
+      $('.inner').fadeIn(3500);
+      $(document.documentElement).css('overflow', 'hidden');
   }
 
   for (var i = 0; i < maxApiCount; i++) {
