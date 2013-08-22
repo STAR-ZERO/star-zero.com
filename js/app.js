@@ -60,10 +60,7 @@ $(function() {
           $containerImages.show();
           $container.montage({
             fillLastRow: true,
-            alternateHeightRange: {
-              min: 90,
-              max: 240
-            },
+            fixedHeight: 200,
             margin: 0
           });
           $containerImages.hide();
