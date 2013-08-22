@@ -18,6 +18,13 @@ module.exports = function(grunt) {
         }
       }
     },
+    cssmin: {
+      css: {
+        files: {
+          'css/style.min.css': ['css/style.css']
+        }
+      }
+    },
     jshint: {
       app: ['js/app.js']
     },
@@ -37,8 +44,8 @@ module.exports = function(grunt) {
         }
       },
       css: {
-        files: '**/*.css',
-        tasks: [],
+        files: 'css/style.css',
+        tasks: ['cssmin'],
         options: {
           livereload: true
         }
@@ -49,6 +56,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-connect');
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-uglify');
+  grunt.loadNpmTasks('grunt-contrib-cssmin');
   grunt.loadNpmTasks('grunt-contrib-jshint');
 
   grunt.registerTask('server', ['connect', 'watch']);
