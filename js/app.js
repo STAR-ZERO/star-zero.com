@@ -54,6 +54,18 @@ $(function() {
       indexes.push(i);
       $a = $('<a/>');
       $image = $('<img/>').attr('src', val).hide().load(function() {
+        loadImage();
+      }).error(function() {
+        // image load error
+        $(this).remove();
+        loadImage();
+      });
+
+      $a.append($image);
+      $container.append($a);
+    });
+
+    function loadImage() {
         count++;
         if (count == total) {
           var $containerImages = $container.find('img');
@@ -75,10 +87,7 @@ $(function() {
             delay += 40;
           });
         }
-      });
-      $a.append($image);
-      $container.append($a);
-    });
+    }
   }
 
   function showLinks() {
