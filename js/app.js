@@ -43,7 +43,6 @@ $(function() {
     var count = 0;
 
     if (total === 0) {
-      showLinks();
       return;
     }
 
@@ -76,7 +75,7 @@ $(function() {
             margin: 0
           });
           $containerImages.hide();
-          showLinks();
+          $(document.documentElement).css('overflow', 'hidden');
 
           var delay = 1000;
           indexes = _.shuffle(indexes);
@@ -90,14 +89,10 @@ $(function() {
     }
   }
 
-  function showLinks() {
-      $('.loading').hide();
-      $('.inner').fadeIn(3500);
-      $(document.documentElement).css('overflow', 'hidden');
-  }
-
   for (var i = 0; i < maxApiCount; i++) {
       callTumblrApi();
       offset += 20;
   }
+
+  $('.inner').fadeIn(3500);
 });
