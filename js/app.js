@@ -42,6 +42,8 @@ $(function() {
     var total = images.length;
     var count = 0;
 
+    $('#circleG').fadeOut(1000);
+
     if (total === 0) {
       return;
     }
@@ -95,4 +97,5 @@ $(function() {
   }
 
   $('.inner').fadeIn(3500);
+  $('#circleG').fadeIn(3500);
 });
