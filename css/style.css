@@ -66,9 +66,9 @@ h1 {
     position: fixed;
     top: 70%;
     left: 50%;
-    width: 140px;
     z-index: 9999;
     width:140px;
+    margin-left: -70px;
     display: none;
 }
 
