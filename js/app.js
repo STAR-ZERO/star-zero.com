@@ -62,12 +62,23 @@ $(function() {
         loadImage();
       });
 
+      // image load timeout
+      setTimeout(function(image) {
+        return function() {
+          console.log(image.complete);
+          if (!image.complete) {
+            $(image).error();
+          }
+        };
+      }($image[0]), 3000);
+
       $a.append($image);
       $container.append($a);
     });
 
     function loadImage() {
         count++;
+        console.log('count: ' + count);
         if (count == total) {
           var $containerImages = $container.find('img');
           $containerImages.show();
