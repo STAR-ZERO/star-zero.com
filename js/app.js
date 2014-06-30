@@ -65,7 +65,6 @@ $(function() {
       // image load timeout
       setTimeout(function(image) {
         return function() {
-          console.log(image.complete);
           if (!image.complete) {
             $(image).error();
           }
@@ -78,8 +77,15 @@ $(function() {
 
     function loadImage() {
         count++;
-        console.log('count: ' + count);
         if (count == total) {
+
+          // stop loading
+          if (window.stop !== undefined) {
+            window.stop();
+          } else if(document.execCommand !== undefined) {
+            document.execCommand("Stop", false);
+          }
+
           var $containerImages = $container.find('img');
           $containerImages.show();
           $container.montage({
