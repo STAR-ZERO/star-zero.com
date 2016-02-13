@@ -11,9 +11,9 @@ $(function() {
   // windowの高さで取得件数を変える（かなりアバウト）
   var windowHeight = $(window).height();
   if (windowHeight > 800) {
-      maxApiCount = 5;
+    maxApiCount = 5;
   } else if (windowHeight > 800) {
-      maxApiCount = 4;
+    maxApiCount = 4;
   }
 
   function callTumblrApi() {
@@ -33,7 +33,7 @@ $(function() {
     }).complete(function() {
       apiCount++;
       if (apiCount == maxApiCount) {
-          montage();
+        montage();
       }
     });
   }
@@ -76,41 +76,41 @@ $(function() {
     });
 
     function loadImage() {
-        count++;
-        if (count == total) {
+      count++;
+      if (count == total) {
 
-          // stop loading
-          if (window.stop !== undefined) {
-            window.stop();
-          } else if(document.execCommand !== undefined) {
-            document.execCommand("Stop", false);
-          }
-
-          var $containerImages = $container.find('img');
-          $containerImages.show();
-          $container.montage({
-            fillLastRow: true,
-            fixedHeight: 200,
-            margin: 0
-          });
-          $containerImages.hide();
-          $(document.documentElement).css('overflow', 'hidden');
-
-          var delay = 1000;
-          indexes = _.shuffle(indexes);
-          $.each(indexes, function(i, val) {
-            setTimeout(function() {
-              $($containerImages[val]).fadeIn(1500);
-            }, delay);
-            delay += 40;
-          });
+        // stop loading
+        if (window.stop !== undefined) {
+          window.stop();
+        } else if (document.execCommand !== undefined) {
+          document.execCommand("Stop", false);
         }
+
+        var $containerImages = $container.find('img');
+        $containerImages.show();
+        $container.montage({
+          fillLastRow: true,
+          fixedHeight: 200,
+          margin: 0
+        });
+        $containerImages.hide();
+        $(document.documentElement).css('overflow', 'hidden');
+
+        var delay = 1000;
+        indexes = _.shuffle(indexes);
+        $.each(indexes, function(i, val) {
+          setTimeout(function() {
+            $($containerImages[val]).fadeIn(1500);
+          }, delay);
+          delay += 40;
+        });
+      }
     }
   }
 
   for (var i = 0; i < maxApiCount; i++) {
-      callTumblrApi();
-      offset += 20;
+    callTumblrApi();
+    offset += 20;
   }
 
   $('.inner').fadeIn(3500);
