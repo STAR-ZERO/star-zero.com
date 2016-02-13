@@ -6,15 +6,8 @@ $(function() {
   var images = [];
 
   var maxApiCount = 3;
+  var limitApiCount = 8;
   var apiCount = 0;
-
-  // windowの高さで取得件数を変える（かなりアバウト）
-  var windowHeight = $(window).height();
-  if (windowHeight > 800) {
-    maxApiCount = 5;
-  } else if (windowHeight > 800) {
-    maxApiCount = 4;
-  }
 
   function callTumblrApi() {
     $.getJSON(url + offset).done(function(data) {
@@ -32,7 +25,7 @@ $(function() {
       });
     }).complete(function() {
       apiCount++;
-      if (apiCount == maxApiCount) {
+      if (apiCount >= maxApiCount) {
         montage();
       }
     });
@@ -41,8 +34,6 @@ $(function() {
   function montage() {
     var total = images.length;
     var count = 0;
-
-    $('#circleG').fadeOut(1000);
 
     if (total === 0) {
       return;
@@ -88,22 +79,40 @@ $(function() {
 
         var $containerImages = $container.find('img');
         $containerImages.show();
-        $container.montage({
+        $('#am-container').montage({
           fillLastRow: true,
           fixedHeight: 200,
           margin: 0
         });
-        $containerImages.hide();
-        $(document.documentElement).css('overflow', 'hidden');
 
-        var delay = 1000;
-        indexes = _.shuffle(indexes);
-        $.each(indexes, function(i, val) {
-          setTimeout(function() {
-            $($containerImages[val]).fadeIn(1500);
-          }, delay);
-          delay += 40;
-        });
+        if ($(window).height() < $container.height() || apiCount >= limitApiCount) {
+          // 高さが足りているか、API制限を超えたら表示
+
+          $('#circleG').fadeOut(1000);
+
+          $containerImages.hide();
+          $(document.documentElement).css('overflow', 'hidden');
+
+          var delay = 1000;
+          indexes = _.shuffle(indexes);
+          $.each(indexes, function(i, val) {
+            setTimeout(function() {
+              $($containerImages[val]).fadeIn(1500);
+            }, delay);
+            delay += 40;
+          });
+
+        } else {
+          // 高さが足りていない場合は一度削除してAPIを呼び直す
+          // emptyで子要素のみを削除したらうまく動かなかったので再作成している
+
+          $container.remove();
+          $container = $('<div class="am-container" id="am-container"/>');
+          $('body').append($container);
+
+          callTumblrApi();
+          offset += 20;
+        }
       }
     }
   }
