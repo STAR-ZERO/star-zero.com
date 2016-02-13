@@ -4,6 +4,8 @@ var sourcemaps = require('gulp-sourcemaps');
 var minifyCss = require('gulp-minify-css');
 var del = require('del');
 var rename = require("gulp-rename");
+var plumber = require('gulp-plumber');
+var notify = require('gulp-notify');
 var webserver = require('gulp-webserver');
 
 var paths = {
@@ -23,6 +25,9 @@ gulp.task('clean', ['clean:js, clean:css']);
 
 gulp.task('js', ['clean:js'], function() {
   return gulp.src(paths.js)
+    .pipe(plumber({
+      errorHandler: notify.onError("Error: <%= error.message %>")
+    }))
     .pipe(sourcemaps.init())
     .pipe(uglify())
     .pipe(rename({
@@ -34,6 +39,9 @@ gulp.task('js', ['clean:js'], function() {
 
 gulp.task('css', ['clean:css'], function() {
   gulp.src(paths.css)
+    .pipe(plumber({
+      errorHandler: notify.onError("Error: <%= error.message %>")
+    }))
     .pipe(sourcemaps.init())
     .pipe(minifyCss())
     .pipe(rename({
