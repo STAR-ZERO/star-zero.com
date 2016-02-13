@@ -1,19 +1,18 @@
 ## setup
 
 ```
-$ npm install -g grunt-cli
+$ npm install -g gulp-cli
 $ npm install
 ```
 
 ## minify
 
 ```
-$ grunt uglify
-$ grunt cssmin
+$ gulp
 ```
 
 ## development
 
 ```
-$ grunt server
+$ gulp develop
 ```
