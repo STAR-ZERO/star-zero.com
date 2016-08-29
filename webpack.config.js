@@ -14,7 +14,7 @@ module.exports = {
       { test: /\.css$/, loader: 'style!css' }
     ]
   },
-  devtool: PRODUCTION ? "eval" : "#inline-source-map",
+  devtool: PRODUCTION ? "" : "#inline-source-map",
   plugins: PRODUCTION ? [
     new webpack.optimize.OccurrenceOrderPlugin(),
     new webpack.optimize.UglifyJsPlugin({
