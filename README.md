@@ -1,18 +1,17 @@
 ## setup
 
 ```
-$ npm install -g gulp-cli
 $ npm install
-```
-
-## minify
-
-```
-$ gulp
 ```
 
 ## development
 
 ```
-$ gulp develop
+$ npm run start
+```
+
+## production build
+
+```
+$ npm run build
 ```
