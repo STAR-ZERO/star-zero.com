@@ -1,2 +1,12 @@
-require("./css/style.css");
-require("./js/app.js");
+require("./css/style.css")
+
+import React from 'react'
+import ReactDOM from "react-dom"
+
+import App from './js/containers/App'
+
+ReactDOM.render(
+  <App />,
+  document.getElementById('content')
+)
+
