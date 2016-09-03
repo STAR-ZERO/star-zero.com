@@ -7,23 +7,13 @@ body {
   position: fixed;
   overflow: hidden;
 }
-.am-wrapper {
-  float: left;
-  position: relative;
-  overflow: hidden;
-}
-.am-wrapper img {
-  position: absolute;
-  outline: none;
-}
-.am-container {
-  overflow: hidden;
-}
-.container {
+
+#content {
   overflow: hidden;
   width: 100%;
   height: 100%;
 }
+
 .overlay {
   position: absolute;
   top: 0;
@@ -69,7 +59,6 @@ h1 {
   z-index: 9999;
   width: 140px;
   margin-left: -70px;
-  display: none;
 }
 .circleG {
   background-color: #DDDDDD;
