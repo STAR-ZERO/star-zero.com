@@ -2,6 +2,11 @@ import React from 'react';
 import Masonry from 'react-masonry-component';
 
 export default class Images extends React.Component {
+  constructor(props) {
+    super(props);
+    this.handleImagesLoaded = this.handleImagesLoaded.bind(this);
+  }
+
   render() {
     var images = [];
     var key = 0;
@@ -30,5 +35,9 @@ export default class Images extends React.Component {
         { images }
       </Masonry>
     )
+  }
+
+  handleImagesLoaded(imagesLoadedInstance) {
+    this.props.onImagesLoaded();
   }
 }

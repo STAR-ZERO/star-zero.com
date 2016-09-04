@@ -3,7 +3,7 @@ import React from 'react';
 export default class Link extends React.Component {
   render() {
     return (
-      <div className="inner">
+      <div className={this.props.completedLoading ? 'inner' : 'hidden'}>
         <h1>STAR-ZERO</h1>
         <div className="link">
           <a href="https://twitter.com/STAR_ZERO" target="_blank"><img src="img/twitter.png" width="60" height="60" /></a>

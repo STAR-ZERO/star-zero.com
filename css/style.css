@@ -13,6 +13,10 @@ body {
   height: 100%;
 }
 
+.hidden {
+  display: none;
+}
+
 .overlay {
   position: absolute;
   top: 0;
@@ -35,8 +39,8 @@ body {
   background-color: rgba(0, 0, 0, 0.5);
   z-index: 9999;
   color: white;
-  display: none;
 }
+
 h1 {
   font-family: 'Bowlby One', cursive;
   font-size: 48px;

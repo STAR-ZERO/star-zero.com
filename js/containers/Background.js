@@ -13,6 +13,7 @@ export default class Background extends React.Component {
     };
 
     this.fetch = this.fetch.bind(this);
+    this.handleImagesLoaded = this.handleImagesLoaded.bind(this);
   }
 
   componentDidMount() {
@@ -22,7 +23,7 @@ export default class Background extends React.Component {
   render() {
     return (
         <div>
-          <Images data={this.state.data} />
+          <Images data={this.state.data} onImagesLoaded={this.handleImagesLoaded} />
         </div>
     );
   }
@@ -43,6 +44,10 @@ export default class Background extends React.Component {
         data: this.state.data.concat(data.response.posts)
       });
     }.bind(this));
+  }
+
+  handleImagesLoaded() {
+    this.props.onCompleteLoading();
   }
 }
 
