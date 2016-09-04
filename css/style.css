@@ -77,7 +77,13 @@ h1 {
 
 .grid-item img {
   width: 100%;
+  opacity: 0.01;
   display: block;
+}
+
+.grid-item img.fadein {
+  opacity: 1;
+  transition: opacity 2s ease-in;
 }
 
 /* loading */

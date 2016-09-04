@@ -27,6 +27,27 @@ export default class Images extends React.Component {
     return this.isCompleteFetchAPI(nextState);
   }
 
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.photos.length == this.state.photos.length) {
+      return;
+    }
+
+    var images = [];
+    for (var i = 0; i < this.state.photos.length; i++) {
+      images.push(this.refs["images" + i]);
+    }
+
+    // ランダムにフェードインで表示
+    let shuffledImages = this.shuffle(images);
+    var delay = 1000;
+    shuffledImages.map(image => {
+      setTimeout(() => {
+        image.className = 'fadein';
+      }, delay);
+      delay += 60;
+    });
+  }
+
   render() {
     var images = [];
     var key = 0;
@@ -35,7 +56,7 @@ export default class Images extends React.Component {
     this.state.photos.map(photo => {
       images.push(
         <div key={key} className="grid-item">
-          <img src={photo.alt_sizes[0].url} />
+          <img src={photo.alt_sizes[0].url} ref={"images" + key} />
         </div>
       );
       key++;
