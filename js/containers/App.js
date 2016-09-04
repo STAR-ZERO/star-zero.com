@@ -3,7 +3,7 @@ import React from 'react';
 import Loading from '../components/Loading'
 import Overlay from '../components/Overlay'
 import Link from '../components/Link'
-import Background from './Background'
+import Images from '../components/Images'
 
 export default class App extends React.Component {
   constructor(props) {
@@ -22,7 +22,7 @@ export default class App extends React.Component {
         <Loading completedLoading={this.state.completedLoading} />
         <Overlay />
         <Link completedLoading={this.state.completedLoading} />
-        <Background onCompleteLoading={this.handleCompletedLoading} />
+        <Images onCompleteLoading={this.handleCompletedLoading} />
       </div>
     )
   }
