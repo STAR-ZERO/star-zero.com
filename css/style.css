@@ -57,10 +57,17 @@ h1 {
 .link-appear {
   opacity: 0.01;
 }
-
 .link-appear.link-appear-active {
   opacity: 1;
   transition: opacity 2s ease-in;
+}
+
+.loading-leave {
+  opacity: 1;
+  transition: opacity 2s ease-in;
+}
+.loading-leave.loading-leave-active {
+  opacity: 0.01;
 }
 
 /* images */
