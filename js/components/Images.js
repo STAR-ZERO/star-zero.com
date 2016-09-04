@@ -3,10 +3,12 @@ import Masonry from 'react-masonry-component';
 import jsonp from 'jsonp'
 
 export default class Images extends React.Component {
+
   constructor(props) {
     super(props);
 
     this.state = {
+      page: 0,
       offset: 0,
       data: []
     };
@@ -14,10 +16,15 @@ export default class Images extends React.Component {
     this.fetch = this.fetch.bind(this);
     this.shuffle = this.shuffle.bind(this);
     this.handleImagesLoaded = this.handleImagesLoaded.bind(this);
+    this.isCompleteFetchAPI = this.isCompleteFetchAPI.bind(this);
   }
 
   componentDidMount() {
     this.fetch();
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    return this.isCompleteFetchAPI(nextState);
   }
 
   render() {
@@ -62,15 +69,23 @@ export default class Images extends React.Component {
       }
 
       this.setState({
-        offset: this.state.offset + 1,
+        page: this.state.page + 1,
+        offset: this.state.offset + 20,
         data: this.shuffle(this.state.data.concat(data.response.posts))
       });
+
+      if (!this.isCompleteFetchAPI(this.state)) {
+        this.fetch();
+      }
+
     }.bind(this));
   }
 
   // Masonry loaded
   handleImagesLoaded(imagesLoadedInstance) {
-    this.props.onCompleteLoading();
+    if (this.isCompleteFetchAPI(this.state)) {
+      this.props.onCompleteLoading();
+    }
   }
 
   shuffle(array) {
@@ -87,5 +102,9 @@ export default class Images extends React.Component {
     }
 
     return shuffled;
+  }
+
+  isCompleteFetchAPI(state) {
+    return state.page >= 3;
   }
 }
