@@ -10,7 +10,7 @@ export default class Images extends React.Component {
     this.state = {
       page: 0,
       offset: 0,
-      data: []
+      photos: []
     };
 
     this.fetch = this.fetch.bind(this);
@@ -32,15 +32,13 @@ export default class Images extends React.Component {
     var key = 0;
 
     // データからimgタグを生成
-    this.state.data.map(data => {
-      data.photos.map(photo => {
-        images.push(
-          <div key={key} className="grid-item">
-            <img src={photo.alt_sizes[0].url} />
-          </div>
-        );
-        key++;
-      });
+    this.state.photos.map(photo => {
+      images.push(
+        <div key={key} className="grid-item">
+          <img src={photo.alt_sizes[0].url} />
+        </div>
+      );
+      key++;
     });
 
     let masonryOptions = {
@@ -68,10 +66,18 @@ export default class Images extends React.Component {
         return;
       }
 
+      // expand photo
+      var photos = [];
+      data.response.posts.map(data => {
+        data.photos.map(photo => {
+          photos.push(photo);
+        });
+      });
+
       this.setState({
         page: this.state.page + 1,
         offset: this.state.offset + 20,
-        data: this.shuffle(this.state.data.concat(data.response.posts))
+        photos: this.shuffle(this.state.photos.concat(photos))
       });
 
       if (!this.isCompleteFetchAPI(this.state)) {
