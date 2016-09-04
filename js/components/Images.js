@@ -1,4 +1,5 @@
 import React from 'react';
+import Masonry from 'react-masonry-component';
 
 export default class Images extends React.Component {
   render() {
@@ -9,18 +10,25 @@ export default class Images extends React.Component {
     this.props.data.map(data => {
       data.photos.map(photo => {
         images.push(
-          <img key={key} src={photo.alt_sizes[0].url} />
+          <div key={key} className="grid-item">
+            <img src={photo.alt_sizes[0].url} />
+          </div>
         );
         key++;
       });
     });
+
+    let masonryOptions = {
+      transitionDuration: 0
+    };
+
     return (
-      <div>
+      <Masonry
+        className={'grid'}
+        options={masonryOptions}
+        onImagesLoaded={this.handleImagesLoaded}>
         { images }
-      </div>
+      </Masonry>
     )
   }
 }
-
-
-
