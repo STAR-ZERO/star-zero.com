@@ -12,6 +12,7 @@ export default class Images extends React.Component {
     };
 
     this.fetch = this.fetch.bind(this);
+    this.shuffle = this.shuffle.bind(this);
     this.handleImagesLoaded = this.handleImagesLoaded.bind(this);
   }
 
@@ -62,7 +63,7 @@ export default class Images extends React.Component {
 
       this.setState({
         offset: this.state.offset + 1,
-        data: this.state.data.concat(data.response.posts)
+        data: this.shuffle(this.state.data.concat(data.response.posts))
       });
     }.bind(this));
   }
@@ -70,5 +71,21 @@ export default class Images extends React.Component {
   // Masonry loaded
   handleImagesLoaded(imagesLoadedInstance) {
     this.props.onCompleteLoading();
+  }
+
+  shuffle(array) {
+    let n = array.length;
+    var shuffled = [];
+
+    while (n) {
+      let i = Math.floor(Math.random() * array.length);
+      if (i in array) {
+        shuffled.push(array[i]);
+        delete array[i];
+        n--;
+      }
+    }
+
+    return shuffled;
   }
 }
