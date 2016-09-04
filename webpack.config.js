@@ -21,6 +21,11 @@ module.exports = {
   },
   devtool: PRODUCTION ? "" : "#inline-source-map",
   plugins: PRODUCTION ? [
+    new webpack.DefinePlugin({
+      "process.env": {
+         NODE_ENV: JSON.stringify("production")
+      }
+    }),
     new webpack.optimize.OccurrenceOrderPlugin(),
     new webpack.optimize.UglifyJsPlugin({
       compress: { warnings: false }
