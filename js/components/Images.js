@@ -1,4 +1,5 @@
 import React from 'react';
+import update from 'react-addons-update';
 import Masonry from 'react-masonry-component';
 import jsonp from 'jsonp'
 
@@ -10,13 +11,15 @@ export default class Images extends React.Component {
     this.state = {
       page: 0,
       offset: 0,
-      photos: []
+      photos: [],
+      completeImageLoaded: false
     };
 
     this.fetch = this.fetch.bind(this);
     this.shuffle = this.shuffle.bind(this);
     this.handleImagesLoaded = this.handleImagesLoaded.bind(this);
     this.isCompleteFetchAPI = this.isCompleteFetchAPI.bind(this);
+    this.imageRandomFadein = this.imageRandomFadein.bind(this);
   }
 
   componentDidMount() {
@@ -24,28 +27,10 @@ export default class Images extends React.Component {
   }
 
   shouldComponentUpdate(nextProps, nextState) {
+    if (nextState.photos.length == this.state.photos.length) {
+      return false;
+    }
     return this.isCompleteFetchAPI(nextState);
-  }
-
-  componentDidUpdate(prevProps, prevState) {
-    if (prevState.photos.length == this.state.photos.length) {
-      return;
-    }
-
-    var images = [];
-    for (var i = 0; i < this.state.photos.length; i++) {
-      images.push(this.refs["images" + i]);
-    }
-
-    // ランダムにフェードインで表示
-    let shuffledImages = this.shuffle(images);
-    var delay = 1000;
-    shuffledImages.map(image => {
-      setTimeout(() => {
-        image.className = 'fadein';
-      }, delay);
-      delay += 60;
-    });
   }
 
   render() {
@@ -110,9 +95,36 @@ export default class Images extends React.Component {
 
   // Masonry loaded
   handleImagesLoaded(imagesLoadedInstance) {
-    if (this.isCompleteFetchAPI(this.state)) {
+    // Somehow this method is called two time, so it check state
+    if (this.isCompleteFetchAPI(this.state) && !this.state.completeImageLoaded) {
       this.props.onCompleteLoading();
+
+      let newState = update(this.state, {
+        completeImageLoaded: {
+          $set: true
+        }
+      });
+      this.setState(newState);
+
+      this.imageRandomFadein();
     }
+  }
+
+  imageRandomFadein() {
+    var images = [];
+    for (var i = 0; i < this.state.photos.length; i++) {
+      images.push(this.refs["images" + i]);
+    }
+
+    // ランダムにフェードインで表示
+    let shuffledImages = this.shuffle(images);
+    var delay = 1000;
+    shuffledImages.map(image => {
+      setTimeout(() => {
+        image.className = 'fadein';
+      }, delay);
+      delay += 60;
+    });
   }
 
   shuffle(array) {
