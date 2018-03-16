@@ -24,10 +24,6 @@ var links = []Link{
 		URL:  "https://medium.com/@star_zero",
 	},
 	{
-		Name: "Hatena blog",
-		URL:  "http://starzero.hatenablog.com",
-	},
-	{
 		Name: "Tumblr",
 		URL:  "https://tumblr.star-zero.com",
 	},
