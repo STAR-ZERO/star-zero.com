@@ -27,6 +27,10 @@ var links = []Link{
 		Name: "Tumblr",
 		URL:  "https://tumblr.star-zero.com",
 	},
+	{
+		Name: "Wishlist",
+		URL:  "http://amzn.asia/9HTO4AN",
+	},
 }
 
 func init() {
