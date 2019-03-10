@@ -1,15 +1,11 @@
 # star-zero.com
 
-## Development
+## Setup 
 
-* launch develop server
-
-```
-$ dev_appserver.py app/app.yaml
-```
+Setup Firebase CLI: https://firebase.google.com/docs/hosting/deploying
 
 ## Deploy
 
 ```
-$ gcloud app deploy app/app.yaml --project [project_id]
+$ firebase deploy --project [project_id]
 ```
