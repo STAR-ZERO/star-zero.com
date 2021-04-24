@@ -7,5 +7,5 @@ Setup Firebase CLI: https://firebase.google.com/docs/hosting/deploying
 ## Deploy
 
 ```
-$ firebase deploy --project [project_id]
+$ firebase deploy --only hosting --project [project_id]
 ```
